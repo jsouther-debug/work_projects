@@ -122,7 +122,7 @@ int main(int argc, char* argv[]) {
         }
         printf("%c", message[i]);
     }
-
+    fclose(file);
 
     return 0;
 }
