@@ -22,8 +22,12 @@
 				!$_POST['fname'] | !$_POST['lname']) {
  				die('<p>You did not fill in a required field.
 				Please go back and try again!</p>');
- 			}
-			
+			}
+			$num = preg_match('@[0-9]@', $_POST['password']);
+
+			if(strlen(trim($_POST['password'])) < 9 | !$num)
+				die('Password is not long enough or does not contain a number');
+
 			$password = $_POST['password'];
 			
 			$check = mysqli_query($DB, "SELECT * FROM users WHERE username = '".$_POST['uname']."'") or die(mysqli_error($DB));
@@ -52,7 +56,7 @@
                 </tr>
                 <tr>
                     <td> Password </td>
-                    <td> <input type="password" name="password" maxlength="40" /> </td>
+                    <td> <input type="password" name="password" maxlength="40"/> </td>
                 </tr>
                 <tr>
                     <td> First Name </td>

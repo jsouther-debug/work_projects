@@ -12,7 +12,8 @@
 			die('<p>You did not fill in a required field.
 			Please go back and try again!</p>');
 		}
-		
+		$sql = 	"INSERT INTO threads (username, title, message, date) VALUES('".$_COOKIE['hackme']."', '". $_POST['title']."', '". $_POST[message]."', '".time()."')";
+echo "<BR> $sql <BR>" . PHP_EOL;
 		mysqli_query($DB, "INSERT INTO threads (username, title, message, date) VALUES('".$_COOKIE['hackme']."', '". $_POST['title']."', '". $_POST[message]."', '".time()."')")or die(mysqli_error($DB));
 		
 		header("Location: members.php");
