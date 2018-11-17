@@ -1,6 +1,7 @@
 <?php
 	// Connects to the Database 
 	include('connect.php');
+//	$attempt = 0;	
 	$DB = connect();
 	
 	//if the login form is submitted 
@@ -15,7 +16,6 @@
 		$password = $_POST['password'];
 		
 		$check = mysqli_query($DB, "SELECT * FROM users WHERE username = '".$_POST['username']."'")or die(mysqli_error($DB));
-		
  		//Gives error if user already exist
  		$check2 = mysqli_num_rows($check);
 		if ($check2 == 0) {
@@ -25,13 +25,18 @@
 		{
 			while($info = mysqli_fetch_array($check )) 	{
 			 	//gives error if the password is wrong
-				if ($password != $info['pass']) {
+				if (crypt($password, "thesalt") != $info['pass']) {
+			//		$attempt = $attempt + 1;
+			//		echo $attempt;
+			//		if($attempt > 5){
+
+			//		}
 					die('Incorrect password, please try again.');
 				}
 			}
 			$hour = time() + 3600; 
 			setcookie('hackme', $_POST['username'], $hour); 
-			setcookie('hackme_pass', $password, $hour);
+			setcookie('hackme_pass', crypt($password,"thesalt"), $hour);
 			header("Location: members.php");
 		}
 	}
@@ -45,15 +50,22 @@
 <?php
 	include('header.php');
 ?>
+//<?php
+	
+
+//?>	
 <div class="post">
 	<div class="post-bgtop">
 		<div class="post-bgbtm">
         <h2 class = "title">hackme bulletin board</h2>
         	<?php
-            if(!isset($_COOKIE['hackme'])){
+            if(!isset($_COOKIE['hackme']) and !isset($_COOKIE['hackme_pass']) and $_COOKIE['hackme'] == "value" and $_COOKIE['hackme_pass']=="value"){
 				 die('Why are you not logged in?!');
 			}else
 			{
+				if($_COOKIE['hackme']=="value"){
+					die('stop modifying my cookies!!!!!!!!');
+				}
 				print("<p>Logged in as <a>$_COOKIE[hackme]</a></p>");
 			}
 			?>

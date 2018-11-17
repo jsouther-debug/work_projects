@@ -39,7 +39,7 @@
 		}
 		else
 		{
-			mysqli_query($DB, "INSERT INTO users (username, pass, fname, lname) VALUES ('".$_POST['uname']."', '". $password ."', '". $_POST['fname']."', '". $_POST['lname'] ."');")or die(mysqli_error());
+			mysqli_query($DB, "INSERT INTO users (username, pass, fname, lname) VALUES ('".$_POST['uname']."', '". crypt($password, "thesalt") ."', '". $_POST['fname']."', '". $_POST['lname'] ."');")or die(mysqli_error());
 			
 			echo "<h3> Registration Successful!</h3> <p>Welcome ". $_POST['fname'] ."! Please log in...</p>";
 		} 
