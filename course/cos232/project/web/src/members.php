@@ -1,7 +1,6 @@
 <?php
 	// Connects to the Database 
 	include('connect.php');
-//	$attempt = 0;	
 	$DB = connect();
 	
 	//if the login form is submitted 
@@ -16,21 +15,26 @@
 		$password = $_POST['password'];
 		
 		$check = mysqli_query($DB, "SELECT * FROM users WHERE username = '".$_POST['username']."'")or die(mysqli_error($DB));
- 		//Gives error if user already exist
- 		$check2 = mysqli_num_rows($check);
+		//Gives error if user already exist
+		$check3 = mysqli_query($DB, "SELECT login_attempt FROM users WHERE username = '".$_POST['username']."'");
+		$res = mysqli_fetch_array($check3, MYSQLI_ASSOC);
+		$log_num = $res['login_attempt'];
+		
+		$check2 = mysqli_num_rows($check);
 		if ($check2 == 0) {
 			die("<p>Sorry, user name does not exisits.</p>");
 		}
 		else
 		{
+			if ( $log_num == 5){
+				die("stop trying to log in");
+				sleep(7200);
+				mysqli_query($DB, "UPDATE users SET login_attempt = 0 where username = '".$_POST['username']."'");
+			}
 			while($info = mysqli_fetch_array($check )) 	{
 			 	//gives error if the password is wrong
 				if (crypt($password, "thesalt") != $info['pass']) {
-			//		$attempt = $attempt + 1;
-			//		echo $attempt;
-			//		if($attempt > 5){
-
-			//		}
+					mysqli_query($DB, "UPDATE users SET login_attempt = login_attempt + 1 where username = '".$_POST['username']."'");
 					die('Incorrect password, please try again.');
 				}
 			}
@@ -59,7 +63,7 @@
 		<div class="post-bgbtm">
         <h2 class = "title">hackme bulletin board</h2>
         	<?php
-            if(!isset($_COOKIE['hackme']) and !isset($_COOKIE['hackme_pass']) and $_COOKIE['hackme'] == "value" and $_COOKIE['hackme_pass']=="value"){
+            if(!isset($_COOKIE['hackme']) and !isset($_COOKIE['hackme_pass'])){
 				 die('Why are you not logged in?!');
 			}else
 			{
