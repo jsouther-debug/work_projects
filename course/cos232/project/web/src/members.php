@@ -2,7 +2,7 @@
 	// Connects to the Database 
 	include('connect.php');
 	$DB = connect();
-	
+		
 	//if the login form is submitted 
 	if (isset($_POST['submit'])) {
 		

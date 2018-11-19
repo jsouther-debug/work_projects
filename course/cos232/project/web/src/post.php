@@ -2,10 +2,21 @@
 // Connects to the Database 
 	include('connect.php');
 	$DB = connect();
-	
+	session_start();
+	if ($_SESSION['token']){
+		$token = $_SESSION['token'];
+	} else {
+		$token = uniqid();
+		$_SESSION['token'] = $token;
+	}
 	//if the login form is submitted 
 	if (isset($_POST['post_submit'])) {
-		
+
+		if (!array_key_exists('token', $_GET) || $token != $_POST['tk']){
+			//die('nice try csrf');
+			header("Location: members.php");
+			exit;
+		}
 		$_POST['title'] = trim($_POST['title']);
 		if(!$_POST['title'] | !$_POST['message']) {
 			include('header.php');
@@ -15,7 +26,6 @@
 		$sql = 	"INSERT INTO threads (username, title, message, date) VALUES('".$_COOKIE['hackme']."', '". $_POST['title']."', '". $_POST[message]."', '".time()."')";
 echo "<BR> $sql <BR>" . PHP_EOL;
 		mysqli_query($DB, "INSERT INTO threads (username, title, message, date) VALUES('".$_COOKIE['hackme']."', '". $_POST['title']."', '". $_POST[message]."', '".time()."')")or die(mysqli_error($DB));
-		
 		header("Location: members.php");
 	}
 ?>  
@@ -45,7 +55,8 @@ echo "<BR> $sql <BR>" . PHP_EOL;
             <p class="meta">by <a href="#"><?php echo $_COOKIE['hackme'] ?> </a></p>
             <p> do not leave any fields blank... </p>
             
-            <form method="post" action="post.php">
+	    <form method="post" action="post.php">
+	    <input type="hidden" name="tk" value"<?=$token?>">
             Title: <input type="text" name="title" maxlength="50"/>
             <br />
             <br />
