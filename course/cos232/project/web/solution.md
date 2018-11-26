@@ -10,5 +10,7 @@ COS-232
 
 milestone2;
 11/19/18;
+(code for the attack is in csrfm2.html);
+
 
 	I started by going back to the cross site request forgery lab and then used example two as my platform for the attack and put the file in my public_html on my local drive. I added an input line for the other variable that needed to be changed, the first one being title, the second being the message. Then I added the method=POST to the form tag so it could post. Then as the last thing I added the name="post_submit" so it would know to actually post it. I think that was all there was to getting the attack to work, but I could be forgetting something. As far as the fix goes, I made a session start, created a token variable. I added a hidden token field to the html that gets set when the user opens the post page. Then I did the check to make sure the token key existed and that it matched the token created by our page, this ensured that the user was on the correct page and not visiting some link or clicking some button they shouldn't be. Then if either of those checks failed it would exit and repoint them to members.php. Then the last thing I did was destroy the sessions upon logging out. I think that was everything, could be forgetting something though.
