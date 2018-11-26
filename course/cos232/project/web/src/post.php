@@ -1,7 +1,6 @@
 <?php
 // Connects to the Database 
 	include('connect.php');
-	$DB = connect();
 	session_start();
 	if ($_SESSION['token']){
 		$token = $_SESSION['token'];
@@ -9,14 +8,14 @@
 		$token = uniqid();
 		$_SESSION['token'] = $token;
 	}
+	$DB = connect();
 	//if the login form is submitted 
 	if (isset($_POST['post_submit'])) {
-
-		if (!array_key_exists('token', $_GET) || $token != $_POST['tk']){
-			//die('nice try csrf');
+		if (!array_key_exists('token', $_GET) |$token != $_POST['token']){
 			header("Location: members.php");
 			exit;
 		}
+
 		$_POST['title'] = trim($_POST['title']);
 		if(!$_POST['title'] | !$_POST['message']) {
 			include('header.php');
@@ -56,7 +55,7 @@ echo "<BR> $sql <BR>" . PHP_EOL;
             <p> do not leave any fields blank... </p>
             
 	    <form method="post" action="post.php">
-	    <input type="hidden" name="tk" value"<?=$token?>">
+	    <input type="hidden" name="token" value="<?=$token?>">
             Title: <input type="text" name="title" maxlength="50"/>
             <br />
             <br />
