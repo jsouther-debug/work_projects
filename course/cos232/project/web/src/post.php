@@ -11,7 +11,7 @@
 	$DB = connect();
 	//if the login form is submitted 
 	if (isset($_POST['post_submit'])) {
-		if (!array_key_exists('token', $_GET) |$token != $_POST['token']){
+		if (!array_key_exists('token', $_POST) |$token != $_POST['token']){
 			header("Location: members.php");
 			exit;
 		}
