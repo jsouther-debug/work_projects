@@ -52,17 +52,8 @@
 <title>hackme</title>
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 <?php
-	include('header.php');
-?>
 //<?php
 	
-
-//?>	
-<div class="post">
-	<div class="post-bgtop">
-		<div class="post-bgbtm">
-        <h2 class = "title">hackme bulletin board</h2>
-        	<?php
             if(!isset($_COOKIE['hackme']) and !isset($_COOKIE['hackme_pass'])){
 				 die('Why are you not logged in?!');
 			}else
@@ -72,7 +63,13 @@
 				}
 				print("<p>Logged in as <a>$_COOKIE[hackme]</a></p>");
 			}
-			?>
+	include('header.php');
+		?>
+//?>	
+<div class="post">
+	<div class="post-bgtop">
+		<div class="post-bgbtm">
+        <h2 class = "title">hackme bulletin board</h2>
         </div>
     </div>
 </div>
