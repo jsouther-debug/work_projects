@@ -39,7 +39,10 @@
 		}
 		else
 		{
-			mysqli_query($DB, "INSERT INTO users (username, pass, fname, lname) VALUES ('".$_POST['uname']."', '". crypt($password, "thesalt") ."', '". $_POST['fname']."', '". $_POST['lname'] ."');")or die(mysqli_error());
+			$uname = mysqli_real_escape_string($DB, $_POST['uname']);
+			$fname = mysqli_real_escape_string($DB, $_POST['fname']);
+			$lname = mysqli_real_escape_string($DB, $_POST['lname']);
+			mysqli_query($DB, "INSERT INTO users (username, pass, fname, lname) VALUES ('".$uname."', '". crypt($password, "thesalt") ."', '". $fname."', '". $lname ."');")or die(mysqli_error());
 			
 			echo "<h3> Registration Successful!</h3> <p>Welcome ". $_POST['fname'] ."! Please log in...</p>";
 		} 

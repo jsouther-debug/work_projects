@@ -29,7 +29,10 @@
 		$_POST['title'] = preg_replace('/</', 'less then ', $_POST['title']);
 		$_POST['message'] = preg_replace('/</', 'less then ', $_POST['message']);
 
-		mysqli_query($DB, "INSERT INTO threads (username, title, message, date) VALUES('".$_COOKIE['hackme']."', '". $_POST['title']."', '". $_POST[message]."', '".time()."')")or die(mysqli_error($DB));
+		$title = mysqli_real_escape_string($DB, $_POST['title']);
+		$message = mysqli_real_escape_string($DB, $_POST['message']);
+		$cook = mysqli_real_escape_string($DB, $_COOKIE['hackme']);
+		mysqli_query($DB, "INSERT INTO threads (username, title, message, date) VALUES('".$cook."', '".$title."', '".$message."', '".time()."')")or die(mysqli_error($DB));
 		header("Location: members.php");
 	}
 ?>  
