@@ -26,11 +26,11 @@
 		echo "<BR> $sql <BR>" . PHP_EOL;
 		
 
-		$_POST['title'] = preg_replace('/</', 'less then ', $_POST['title']);
-		$_POST['message'] = preg_replace('/</', 'less then ', $_POST['message']);
+//		$_POST['title'] = preg_replace('/</', 'less then ', $_POST['title']);
+//		$_POST['message'] = preg_replace('/</', 'less then ', $_POST['message']);
 
-		$title = mysqli_real_escape_string($DB, $_POST['title']);
-		$message = mysqli_real_escape_string($DB, $_POST['message']);
+		$title = mysqli_real_escape_string($DB, htmlspecialchars($_POST['title']));
+		$message = mysqli_real_escape_string($DB, htmlspecialchars($_POST['message']));
 		$cook = mysqli_real_escape_string($DB, $_COOKIE['hackme']);
 		mysqli_query($DB, "INSERT INTO threads (username, title, message, date) VALUES('".$cook."', '".$title."', '".$message."', '".time()."')")or die(mysqli_error($DB));
 		header("Location: members.php");

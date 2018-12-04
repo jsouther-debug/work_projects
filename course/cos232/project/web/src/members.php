@@ -52,7 +52,6 @@
 <title>hackme</title>
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 <?php
-//<?php
 	
             if(!isset($_COOKIE['hackme']) and !isset($_COOKIE['hackme_pass'])){
 				 die('Why are you not logged in?!');
@@ -65,7 +64,6 @@
 			}
 	include('header.php');
 		?>
-//?>	
 <div class="post">
 	<div class="post-bgtop">
 		<div class="post-bgbtm">
