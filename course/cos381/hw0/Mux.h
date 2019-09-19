@@ -27,27 +27,41 @@ class Mux : public LogicUnit<width>, public Listener<log2(size)> {
     virtual void update_input(int input, Value<width> value) override;
     virtual void update_input(int input, Value<log2(size)> value) override;
     virtual Value<width> get_output() const override;
+
+  private:
+	int input_values[size];
+	int index;
 };
 
 // implementation of Mux<size, width> follows
 template<int size, int width>
 Mux<size,width>::Mux(const std::string& n) {
-    // code to construct Mux here
+    // code to construct Mux hereinput_values[size];
+	for (int i = 0; i < size; i++){
+		input_values[i] = i;
+	}
+	index = 0;
+	std::string name = n;
 }
 
 template<int size, int width>
 void Mux<size,width>::update_input(int input, Value<width> value) {
     // code to handle input updates here
+	input_values[input] = value;
+	update_listeners();
 }
 
 template<int size, int width>
 void Mux<size,width>::update_input(int input, Value<log2(size)> value) {
     // code to handle select updates here
+	index = value;
+	update_listeners();
 }
 
 template<int size, int width>
 Value<width> Mux<size,width>::get_output() const {
     // code to handle output here
+	input_values[index];
 }
 
 #endif
