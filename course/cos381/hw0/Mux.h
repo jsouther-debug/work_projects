@@ -48,20 +48,20 @@ template<int size, int width>
 void Mux<size,width>::update_input(int input, Value<width> value) {
     // code to handle input updates here
 	input_values[input] = value;
-	LogicUnit.update_listeners();
+	Reporter<width>::update_listeners();
 }
 
 template<int size, int width>
 void Mux<size,width>::update_input(int input, Value<log2(size)> value) {
     // code to handle select updates here
 	index = value;
-	LogicUnit.update_listeners();
+	Reporter<width>::update_listeners();
 }
 
 template<int size, int width>
 Value<width> Mux<size,width>::get_output() const {
     // code to handle output here
-	input_values[index];
+	return input_values[index];
 }
 
 #endif
