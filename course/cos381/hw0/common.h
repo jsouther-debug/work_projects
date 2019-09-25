@@ -23,6 +23,12 @@ struct Value {
 	return result;
     }
 
+    Value<N> operator++() {
+	++x;
+
+	return *this;
+    }
+
     Value<N> operator-=(const unsigned long a) {
 	x -= a;
 
