@@ -19,7 +19,7 @@ ALU::ALU() {
 
 Value<1> ALU::get_output(int output, Value<1> ignore) const {
     // return condition code associated with output
-/*  	switch (output){
+  	switch (output){
 		case 0:
 			return zflag;
 		case 1:
@@ -29,9 +29,9 @@ Value<1> ALU::get_output(int output, Value<1> ignore) const {
 		case 3:
 			return cflag;
 		default:
- */
+
 			return 0;
-//	}
+	}
 }
 
 word ALU::get_output() const {
@@ -98,7 +98,7 @@ void ALU::operate(int op){
 	if (output == 0){
 		zflag = 1;
 	}
-	/*
+	
 	if (output < 0){
 		nflag = 1;
 	}
@@ -143,5 +143,5 @@ void ALU::operate(int op){
 			}	
 		}
 	}
-	*/
+	
 }
