@@ -4,12 +4,21 @@ LDFLAGS = ${CXXFLAGS}
 
 GTEST_DIR = /usr/src/googletest
 
+OBJS = ALU.o \
+       Clock.o \
+       Event.o \
+       RegisterFile.o
+
+ALU.o: ALU.cpp ALU.h LogicUnit.h common.h
+Clock.o: Clock.cpp Clock.h Event.h LogicUnit.h common.h
+Event.o: Event.cpp Event.h common.h
+RegisterFile.o: RegisterFile.cpp RegisterFile.h Clock.h Register.h LogicUnit.h common.h
+
 TEST_CXXFLAGS = ${CXXFLAGS} -isystem ${GTEST_DIR}/googletest/include -isystem ${GTEST_DIR}/googlemock/include -pthread
 
-OBJS = ALU.o
-
 TEST_OBJS = MuxTests.o \
-	    ALUTests.o
+	    ALUTests.o \
+	    RFTests.o
 
 libgtest.a:
 	${CXX} ${CXXFLAGS} -isystem ${GTEST_DIR}/googletest/include -I${GTEST_DIR}/googletest -pthread -c ${GTEST_DIR}/googletest/src/gtest-all.cc
@@ -19,10 +28,6 @@ libgtest.a:
 
 Tests: ${OBJS} ${TEST_OBJS} libgtest.a Tests.cpp
 	${CXX} ${TEST_CXXFLAGS} Tests.cpp ${OBJS} ${TEST_OBJS} libgtest.a -o Tests
-
-ALU.o: ALU.cpp ALU.h LogicUnit.h common.h
-
-MuxTests.o: Mux.h
 
 ${TEST_OBJS}: %.o: %.cpp
 	${CXX} ${TEST_CXXFLAGS} -c $<

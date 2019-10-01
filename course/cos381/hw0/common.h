@@ -2,6 +2,9 @@
 #define COMMON_H
 
 #include <cstdint>
+#include <queue>
+
+#include "Event.h"
 
 template<int N>
 struct Value {
@@ -25,6 +28,12 @@ struct Value {
 
     Value<N> operator++() {
 	++x;
+
+	return *this;
+    }
+
+    Value<N> operator--() {
+	--x;
 
 	return *this;
     }
@@ -64,5 +73,6 @@ struct Value {
 
 typedef Value<32> word;
 extern long current_time;
+extern std::priority_queue<Event> events;
 
 #endif
