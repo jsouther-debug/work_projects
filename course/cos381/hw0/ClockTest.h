@@ -9,7 +9,11 @@ class MockClock : public Clock {
     MockClock(std::string name);
     void tick() const;
 
+#ifdef MOCK_METHOD
     MOCK_METHOD(Value<1>, get_output, (), (const override));
+#else
+    MOCK_CONST_METHOD0(get_output, Value<N>());
+#endif
 };
 
 MockClock::MockClock(std::string name) : Clock(name) {
