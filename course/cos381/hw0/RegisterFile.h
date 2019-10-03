@@ -10,6 +10,7 @@ class RegisterFile : public Listener<5>, public Listener<32>,
 		     public Listener<1>, public MultiReporter<32, 2>
 {
     // private data members here
+	Register rfile[32];
 
   public:
     RegisterFile(Clock* synch);
