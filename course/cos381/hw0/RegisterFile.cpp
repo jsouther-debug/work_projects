@@ -2,23 +2,54 @@
 
 RegisterFile::RegisterFile(Clock* clock) {
 	for(int i = 0; i < 32; i++){
-		rfile[i] = Register(clock);
+		rfile.push_back(Register<32>(clock));
+		rfile[i].register_listener(this, i+5);
 	}
 }
 
 void RegisterFile::update_input(int num, word value) {
-	if (num != 0 and rfile[num].enable = 1){
-		rfile[num].next_value = value;
+	if (num == 3){
+		if (rd != 0){
+			rfile[rd].update_input(0, value);
+			rfile[rd].update_input(0, Value<1>{1});
+		}
+		next_val = value;
+	}
+	else{
+		update_listeners();
 	}
 }
 
 void RegisterFile::update_input(int num, Value<5> value) {
-//	rfile[num]
+	switch(num){
+		case 0:
+			r1 = value;
+			break;
+		case 1:
+			r2 = value;
+			break;
+		case 2:
+			rfile[rd].update_input(4, Value<1>{0});
+			rd = value;
+			if (rd != 0){
+				rfile[rd].update_input(4, Value<1>{1});
+				rfile[rd].update_input(0, next_val);
+			}
+			break;
+	}
 }
 
 void RegisterFile::update_input(int num, Value<1> value) {
-
+	rfile[rd].update_input(0, value);
 }
 
 word RegisterFile::get_output(int output, word ignore) const {
+	switch (output){
+		case 0:
+			return rfile[r1].get_output();
+		case 1:
+			return rfile[r2].get_output();
+		default:
+			return 0;
+	}
 }

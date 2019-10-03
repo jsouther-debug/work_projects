@@ -12,7 +12,7 @@ class MockClock : public Clock {
 #ifdef MOCK_METHOD
     MOCK_METHOD(Value<1>, get_output, (), (const override));
 #else
-    MOCK_CONST_METHOD0(get_output, Value<N>());
+    MOCK_CONST_METHOD0(get_output, Value<1>());
 #endif
 };
 

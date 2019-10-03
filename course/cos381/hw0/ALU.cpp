@@ -41,23 +41,23 @@ word ALU::get_output() const {
 
 void ALU::update_input(int num, Value<3> value) {
     // receive new operation
-	cout << "changing operand to: " << value << endl;
+//	cout << "changing operand to: " << value << endl;
 	operand = value;
 	operate(operand);
-	cout << "Calling update_listeners()\n";
+//	cout << "Calling update_listeners()\n";
 	Reporter::update_listeners();
-	cout << "Done calling update_listeners()\n";
+//	cout << "Done calling update_listeners()\n";
 	MultiReporter::update_listeners();
 }
 
 void ALU::update_input(int num, word value) {
     // receive new input value
-	cout << "num input = :" << num << " : changing value to: " << value << endl;
+//	cout << "num input = :" << num << " : changing value to: " << value << endl;
 	inputs[num] = value;
 	operate(operand);
-	cout << "Calling update_listeners()\n";
+//	cout << "Calling update_listeners()\n";
 	Reporter::update_listeners();
-	cout << "Done calling update_listeners()\n";
+//	cout << "Done calling update_listeners()\n";
 	MultiReporter::update_listeners();
 }
 
@@ -78,11 +78,11 @@ void ALU::operate(int op){
 		case 4:
 			if (inputs[0] < inputs[1]){
 				output = 1;
-				cout << "if input 1 is less then input 2 :" << inputs[0] << ", " << inputs[1] << endl;
+//				cout << "if input 1 is less then input 2 :" << inputs[0] << ", " << inputs[1] << endl;
 			}
 			else{
 				output = 0;
-				cout << "if input 1 is greater then input 2 :" << inputs[0] << ", " << inputs[1] << endl;
+//				cout << "if input 1 is greater then input 2 :" << inputs[0] << ", " << inputs[1] << endl;
 			}
 			break;
 		case 5:
