@@ -12,3 +12,16 @@ class ValueSlice : public Listener<in>, public Reporter<out> {
 		virtual void update_input(int input, Value<in> value) override;
 		virtual Value<out> get_output() const override;
 }
+
+
+
+template<int in, int out>
+void ValueSlice<in, out>::update_input(int input, Value<in> value){
+
+}
+
+
+template<int in, int out>
+Value<out> ValueSlice<in, out>::get_output() const{
+
+}
