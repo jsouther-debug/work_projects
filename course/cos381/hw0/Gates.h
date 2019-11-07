@@ -9,7 +9,7 @@ template<int N>
 		public:
 			virtual void update_input(int num, Value<N> value) override;
 			virtual Value<N> get_output() const override;
-}
+};
 
 
 template<int N>

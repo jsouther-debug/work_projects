@@ -1,4 +1,3 @@
-#!/user/bin/env python
 
 ##vstar
 import re, sys, glob
