@@ -12,22 +12,19 @@
 #include "Register.h"
 #include "Clock.h"
 #include "Memory.h"
-#include "Event.h"
 #include "ControlUnit.h"
 #include "ALUControlUnit.h"
 
 #include <queue>
 
-using std::string_literals::operator""s;
-
 class cpu {
     RegisterFile regs;
     ALUControlUnit aluc;
-    ControlUnit con;
+    ControlUnit control;
 
-    Mux<4, 5> mux_ind{"mux_index"s};
-    Mux<2, 32> branch_or_norm{"Branch or PC + 4"s};
-    Mux<4, 32> pc_input{"Progam Counter input"s};
+    Mux<4, 5> mux_ind{"mux_index"};
+    Mux<2, 32> branch_or_norm{"Branch or PC + 4"};
+    Mux<4, 32> pc_input{"Progam Counter input"};
     Mux<4, 32> alu_mux{"ALU Source 2"};
     Mux<4, 32> data{"Write register"};
     Register<32> pc;
