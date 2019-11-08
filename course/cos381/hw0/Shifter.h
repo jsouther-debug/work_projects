@@ -9,17 +9,17 @@ class LeftShifter : public LogicUnit<N> {
 	public:
 		virtual void update_input(int input, Value<N> value) override;
 		virtual Value<N> get_output() const override;
-}
+};
 
 
 template<int N, int size>
-void LeftShifter<N>::update_input(int input, Value<N> value){
+void LeftShifter<N, size>::update_input(int input, Value<N> value){
 	out = value << shift_amount;
 	this->update_listeners();
 }
 
 template<int N, int size>
-Value<N> get_output(){
+Value<N> LeftShifter<N, size>::get_output() const {
 	return out;
 }
 

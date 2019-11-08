@@ -27,7 +27,7 @@ void AndGate<N>:: update_input(int num, Value<N> value) {
 
 
 template<int N>
-Value<N> AndGate<N>:: get_output() {
+Value<N> AndGate<N>::get_output() const {
 	return v1 & v2;
 }
 

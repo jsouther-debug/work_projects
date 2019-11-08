@@ -3,19 +3,9 @@
 
 #include "CPU.h"
 
-cpu::cpu(Clock* clock, Memory* imem, Memory* dmem){
-    this->control(clock);
-    this->regs(clock);
-    this->pc(clock, 0x1000);
-    this->opcode(26,31, "opcode");
-    this->rs(21, 25, "rs");
-    this->rt(16,20, "rt");
-    this->rd(11, 15, "rd");
-    this->shift_amount(6, 10);
-    this->func(0, 5);
-    this->immed(0, 15);
-    this->address(0, 25);
-    this->aluc(&alu);
+CPU::CPU(Clock* clock, Memory* imem, Memory* dmem): 
+	control(clock), regs(clock), pc(clock, 0x1000), opcode(26,31, "opcode"), rs(21, 25, "rs"), rt(16,20, "rt"),
+    rd(11, 15, "rd"), shift_amount(6, 10), func(0, 5), immed(0, 15), address(0, 25), aluc(&alu){
 
     //Geislers code, still don't fully understand what this first block is doing
     control.register_listener(ControlUnit::InstRequest, imem, 0);
@@ -35,13 +25,13 @@ cpu::cpu(Clock* clock, Memory* imem, Memory* dmem){
     branch_addr.update_input(0, toValue(ALUop::Sum));
 
     //set up branching structure
-    control.register_listener(ControlUnit::Branch, &branch);
+    control.register_listener(ControlUnit::Branch, &branch, 0);
     alu.MultiReporter<1, num_codes>::register_listener(ALU::Zero, &branch, 1);
     pc4.Reporter<32>::register_listener(&branch_or_norm, 0);
     branch_addr.Reporter<32>::register_listener(&branch_or_norm, 1);
     branch.register_listener(&branch_or_norm, 2);
     branch_or_norm.register_listener(&pc_input, 0);
-    daddr.register_lister(&pc_input, 1);
+    daddr.register_listener(&pc_input, 1);
     regs.register_listener(0, &pc_input, 2);
     control.register_listener(ControlUnit::PCSrc, &pc_input, 4);
     pc_input.register_listener(&pc, 0);
@@ -77,7 +67,7 @@ cpu::cpu(Clock* clock, Memory* imem, Memory* dmem){
 
     // various extensions, etc
     shift_amount.register_listener(&shifte, 0);
-    immed.register_listener(&sie, 0)
+    immed.register_listener(&sie, 0);
     control.register_listener(ControlUnit::SignExtend, &sie, 0);
     regs.register_listener(1, &alu_mux, 0);
     sie.register_listener(&alu_mux, 1);
@@ -89,7 +79,7 @@ cpu::cpu(Clock* clock, Memory* imem, Memory* dmem){
     alu.Reporter<32>::register_listener(dmem, 0);
     regs.register_listener(1, dmem, 1);
     alu.Reporter<32>::register_listener(&data, 0);
-    dmem->register_listener(&data, 1) //data not instruction
+    dmem->register_listener(&data, 1); //data not instruction
     pc4.Reporter<32>::register_listener(&data, 2);
     control.register_listener(ControlUnit::MemToReg, &data, 4);
     control.register_listener(ControlUnit::ALUOpType, &aluc, 0);

@@ -4,25 +4,25 @@ template<int in, int out>
 class Extender : public Listener<in>, public Reporter<out>, public Listener<1>
 {
 	// private members here
-	Value<N> input1;
+	Value<in> input1;
 	Value<1> sign_bit;
 
 	public:
 		virtual void update_input(int input, Value<in> value) override;
 		virtual void update_input(int input, Value<1> value) override;
 		virtual Value<out> get_output() const override;
-}
+};
 
 
 
 template<int in, int out>
-void update_input(int input, Value<in> value){
+void Extender<in, out>::update_input(int input, Value<in> value){
 	input1 = value;
 	this->update_listeners();
 }
 
 template<int in, int out>
-void update_input(int input, Value<1> value){
+void Extender<in, out>::update_input(int input, Value<1> value){
 	sign_bit = value;
 	this->update_listeners();
 }
@@ -30,7 +30,7 @@ void update_input(int input, Value<1> value){
 
 
 template<int in, int out>
-Value<out> get_output(){
+Value<out> Extender<in, out>::get_output() const {
 	int asbit = sign_bit & input1 >> (in - 1);
 	Value<out> var;
 	if (asbit){

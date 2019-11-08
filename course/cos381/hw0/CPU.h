@@ -17,7 +17,7 @@
 
 #include <queue>
 
-class cpu {
+class CPU {
     RegisterFile regs;
     ALUControlUnit aluc;
     ControlUnit control;
@@ -44,7 +44,7 @@ class cpu {
     DirectAddress daddr;
 
     public:
-        cpu(Clock* clock, Memory* imem, Memory* dmem);
+        CPU(Clock* clock, Memory* imem, Memory* dmem);
 
 };
 
