@@ -14,6 +14,8 @@ class RegisterFile : public Listener<5>, public Listener<32>,
 	std::vector<Register<32>> rfile;
 	int	r1,	r2, rd;
 	word next_val;
+  Value<1> we;
+
 
   public:
     RegisterFile(Clock* synch);

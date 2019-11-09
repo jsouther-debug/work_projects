@@ -29,18 +29,23 @@ void RegisterFile::update_input(int num, Value<5> value) {
 			r2 = value;
 			break;
 		case 2:
-			rfile[rd].update_input(4, Value<1>{0});
+			rfile[rd].update_input(40 Value<1>{0});
 			rd = value;
 			if (rd != 0){
-				rfile[rd].update_input(4, Value<1>{1});
-				rfile[rd].update_input(0, next_val);
+				rfile[rd].update_input(0, Value<1>{1});
 			}
+			rfile[rd].update_input(0, next_val);
 			break;
 	}
 }
 
 void RegisterFile::update_input(int num, Value<1> value) {
-	rfile[rd].update_input(0, value);
+	if (num == 4){
+		we = value;
+		if (rd != Value<5>{0}){
+			rfile[rd].update_input(0, we);
+		}
+	}
 }
 
 word RegisterFile::get_output(int output, word ignore) const {
