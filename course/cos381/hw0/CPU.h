@@ -14,9 +14,6 @@
 #include "Memory.h"
 #include "ControlUnit.h"
 #include "ALUControlUnit.h"
-#include "Event.h"
-
-#include <queue>
 
 class CPU {
     RegisterFile regs;
