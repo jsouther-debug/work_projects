@@ -25,9 +25,9 @@ class ALU : public LogicUnit<32>, public Listener<3>,
 	    public MultiReporter<1 , num_codes>
 {
     // member data and functions here
-	unsigned int inputs[2];
-	unsigned int operand;
-	unsigned int output;
+	int inputs[2];
+	word operand;
+	word output;
 
 	int zflag;
 	int nflag;
