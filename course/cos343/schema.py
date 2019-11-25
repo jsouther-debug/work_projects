@@ -6,7 +6,7 @@ from psycopg2.extras import RealDictCursor
 
 # Create a connection to Postgres. You will have to update the configuration information here.
 db_connection = psycopg2.connect(
-    dbname="dvdrental",
+    dbname="jared_souther",
     user="jared_souther",
     password="passwd",
     host="faraday.cse.taylor.edu"
