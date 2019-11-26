@@ -75,7 +75,7 @@ class TrailInput(InputObjectType):
     longitude = Float(required=True)
 
 class Ride(ObjectType):
-    rider = lambda: Rider
+    ride = lambda: Rider
     trail = Trail
     date = DateTime(required=True)
     disctance = Float(required=True)
@@ -157,7 +157,7 @@ class Rider(ObjectType):
         return [Rider(**row_data) for row_data in db_cursor.fetchall()]
 
 class RideInput(InputObjectType):
-    riderId = Int(required=True)
+    rideId = Int(required=True)
     trailId = Int(required=True)
     date = DateTime(required=True)
     distance = Float(required=True)
@@ -174,15 +174,15 @@ class CreateRider(Mutation):
     def mutate(root, info, rider_input):
         db_cursor.execute(
             """
-            INSERT INTO rider(firstName, lastName, email, birthday)
-            VALUES (%(first)s, %(last)s, %(email)s, %(birth)s)
+            INSERT INTO rider("firstName", "lastName", email, birthday)
+            VALUES (%(f)s, %(l)s, %(email)s, %(birthday)s)
             RETURNING *
             """,
             {
-                "first": rider_input.firstName,
-                "last": rider_input.lastName,
+                "f": rider_input.firstName,
+                "l": rider_input.lastName,
                 "email": rider_input.email,
-                "birth": rider_input.birthday
+                "birthday": rider_input.birthday
             })
         new_rider = db_cursor.fetchone()
         db_connection.commit()
@@ -201,14 +201,14 @@ class CreateTeam(Mutation):
     def mutate(root, info, team_input):
         db_cursor.execute(
             """
-            INSERT INTO team(webSite, contactEmail, since)
-            VALUES (%(web)s, %(conemail)s, %(sin)s)
+            INSERT INTO team("webSite", "contactEmail", since)
+            VALUES (%(web)s, %(conemail)s, %(since)s)
             RETURNING *
             """,
             {
-                "web": rider_input.webSite,
-                "conemail": rider_input.contactEmail,
-                "sin": rider_input.since
+                "web": team_input.webSite,
+                "conemail": team_input.contactEmail,
+                "since": team_input.since
             })
         new_team = db_cursor.fetchone()
         db_connection.commit()
@@ -226,16 +226,16 @@ class CreateTrail(Mutation):
     def mutate(root, info, trail_input):
         db_cursor.execute(
             """
-            INSERT INTO trail(name, surfaceId, stateAbbrev, latitude, longitude)
+            INSERT INTO trail(name, "surfaceId", "stateAbbrev", latitude, longitude)
             VALUES (%(n)s, %(sur)s, %(sa)s, %(la)s, %(lo)s)
             RETURNING *
             """,
             {
-                "n": rider_input.name,
-                "sur": rider_input.surfaceId,
-                "sa": rider_input.stateAbbrev,
-                "la": rider_input.latitude,
-                "lo": rider_input.longitude
+                "n": trail_input.name,
+                "sur": trail_input.surfaceId,
+                "sa": trail_input.stateAbbrev,
+                "la": trail_input.latitude,
+                "lo": trail_input.longitude
             })
         new_trail = db_cursor.fetchone()
         db_connection.commit()
@@ -253,15 +253,15 @@ class logRide(Mutation):
     def mutate(root, info, ride_input):
         db_cursor.execute(
             """
-            INSERT INTO ride(cyclistId, trailId, date, distance)
+            INSERT INTO ride("rideId", "trailId", date, distance)
             VALUES (%(cId)s, %(tId)s, %(d)s, %(dis)s)
             RETURNING *
             """,
             {
-                "cId": rider_input.cyclistId,
-                "tId": rider_input.trailId,
-                "d": rider_input.date,
-                "dis": rider_input.distance
+                "cId": ride_input.rideId,
+                "tId": ride_input.trailId,
+                "d": ride_input.date,
+                "dis": ride_input.distance
             })
         new_ride = db_cursor.fetchone()
         db_connection.commit()
