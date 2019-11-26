@@ -18,8 +18,6 @@ enum state{
 
 static const int one_bit_outs = 9;
 static const int two_bit_outs = 5;
-//static const int six_bit_ins = 2;
-//static const int one_bit_ins = 2;
 
 class ControlUnit : public Listener<6>, public Listener<1>,
 public MultiReporter<1, one_bit_outs>,
