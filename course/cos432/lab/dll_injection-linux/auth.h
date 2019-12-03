@@ -1,8 +1,4 @@
-//
-// Created by jsouther on 11/19/19.
-//
+#define MAX_STRING_LEN 64
 
-#ifndef DLL_INJECTION_LINUX_AUTH_H
-#define DLL_INJECTION_LINUX_AUTH_H
 
-#endif //DLL_INJECTION_LINUX_AUTH_H
+extern int authenticate(char * username, char * password);
