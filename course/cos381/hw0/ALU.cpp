@@ -97,51 +97,56 @@ void ALU::operate(int op){
 	}
 	if (output == 0){
 		zflag = 1;
+	} else {
+		zflag = 0;
 	}
 	
 	if (output < 0){
 		nflag = 1;
+	} else {
+		nflag = 0;
 	}
 	
-	int a1 = inputs[0];
-	int b1 = inputs[1];
-	int co = 0;
-	int a = a1 & 1;
-	int b = b1 & 1;
-	for(int i=0; i < 31; i++){
-		co = ((a ^ b) & co) | (a & b);
-		a1 = a1 >> 1;
-		b1 = b1 >> 1;
-		a = a1 & 1;
-		b = b1 & 1;
-	}
-	co = ((a ^ b) & co) | (a & b);
-	if (co == 1) {
-		cflag = 1;
-	}
-	else {
-	cflag = 0;
-	}
-	if ((a >= 0 and b < 0) or (b >=0 and a < 0)){
-		oflag = 0;
-	}
-	else if ((inputs[0] >= 0 and inputs[1] >= 0) or (inputs[0] < 0 and inputs[1] < 0)){
-		if (inputs[0] >= 0){
-			if (a == 1) {
-				oflag = 1;
-			}
-			else{
-				oflag = 0;
-			}
-		}
-		else if (inputs[0] < 0){
-			if (a == 0) {
-				oflag = 1;
-			}
-			else{
-				oflag = 0;
-			}	
-		}
-	}
+	
+	// int a1 = inputs[0];
+	// int b1 = inputs[1];
+	// int co = 0;
+	// int a = a1 & 1;
+	// int b = b1 & 1;
+	// for(int i=0; i < 31; i++){
+	// 	co = ((a ^ b) & co) | (a & b);
+	// 	a1 = a1 >> 1;
+	// 	b1 = b1 >> 1;
+	// 	a = a1 & 1;
+	// 	b = b1 & 1;
+	// }
+	// co = ((a ^ b) & co) | (a & b);
+	// if (co == 1) {
+	// 	cflag = 1;
+	// }
+	// else {
+	// cflag = 0;
+	// }
+	// if ((a >= 0 and b < 0) or (b >=0 and a < 0)){
+	// 	oflag = 0;
+	// }
+	// else if ((inputs[0] >= 0 and inputs[1] >= 0) or (inputs[0] < 0 and inputs[1] < 0)){
+	// 	if (inputs[0] >= 0){
+	// 		if (a == 1) {
+	// 			oflag = 1;
+	// 		}
+	// 		else{
+	// 			oflag = 0;
+	// 		}
+	// 	}
+	// 	else if (inputs[0] < 0){
+	// 		if (a == 0) {
+	// 			oflag = 1;
+	// 		}
+	// 		else{
+	// 			oflag = 0;
+	// 		}	
+	// 	}
+	// }
 	
 }

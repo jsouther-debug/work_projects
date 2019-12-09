@@ -26,7 +26,7 @@ class ALU : public LogicUnit<32>, public Listener<3>,
 {
     // member data and functions here
 	int inputs[2];
-	word operand;
+	Value<3> operand;
 	word output;
 
 	int zflag;
