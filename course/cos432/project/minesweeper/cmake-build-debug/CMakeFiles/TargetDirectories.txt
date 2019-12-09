@@ -1,0 +1,3 @@
+/home/CS/users/jsouther/.linux/work/course/cos432/lab/cheater/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/CS/users/jsouther/.linux/work/course/cos432/lab/cheater/cmake-build-debug/CMakeFiles/cheater.dir
+/home/CS/users/jsouther/.linux/work/course/cos432/lab/cheater/cmake-build-debug/CMakeFiles/edit_cache.dir

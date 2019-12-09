@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/CS/users/jsouther/.linux/work/course/cos432/lab/cheater/cheater.c
+stdio.h
+-
+stdlib.h
+-
+fcntl.h
+-
+unistd.h
+-
+string.h
+-
+sys/ptrace.h
+-
+sys/user.h
+-
+wait.h
+-
+sys/personality.h
+-
+signal.h
+-
+stdint.h
+-
+

@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/cheater.dir/cheater.c.o  -o cheater 
