@@ -1,8 +1,12 @@
 const request = require('request');
 
 function countOccurrences(target, source){
-	let b = source.match(/target/g);
-	return b.length;
+	const a = new RegExp(target, 'g');
+	let x = 0;
+	while (a.exec(source) !== null){
+		x++
+	};
+	return x;
 }
 
 request.get("https://www.taylor.edu",
