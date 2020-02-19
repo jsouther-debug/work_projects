@@ -39,13 +39,36 @@ function randomOrgApiCallback (requestOptions, postData){
 
 function randomOrgApiPromise(requestOptions, postData) {
     return new Promise((resolve, reject) => {
-        randomOrgApiCallback (requestOptions, postData)
-        if (err) {
+        const request = https.request(requestOptions, response => {
+            const chunks = [];
+    
+            if (debug) {
+                console.log(`STATUS: ${response.statusCode}`);
+                console.log(`HEADERS: ${prettyPrintJson(response.headers)}`);
+            }
+            response.setEncoding('utf8');
+    
+            response.on('data', chunk => {
+                if (debug) {
+                    console.log(`CHUNK: ${prettyPrintJson(JSON.parse(chunk))}`);
+                }
+                chunks.push(chunk);
+            });
+    
+            response.on('end', () => {
+                const content = chunks.join('');
+                resolve(content);
+                console.log(`CONTENT: \n${prettyPrintJson(JSON.parse(content))}`)
+            });
+    
+        });
+    
+        request.on('error', err => {
             reject(err)
-        }
-        else{
-            resolve(content)
-        }
+        });
+    
+        request.write(JSON.stringify(postData));
+        request.end();
     })
 }
 
