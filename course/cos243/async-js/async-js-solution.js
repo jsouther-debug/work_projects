@@ -1,5 +1,5 @@
 const https = require('https');
-const debug = true;
+const debug = false;
 
 function prettyPrintJson (jsonObject) {
     return JSON.stringify(jsonObject, null, 2);
@@ -41,10 +41,10 @@ function randomOrgApiPromise(requestOptions, postData) {
     return new Promise((resolve, reject) => {
         randomOrgApiCallback (requestOptions, postData)
         if (err) {
-            reject(err);
+            reject(err)
         }
         else{
-            resolve(result)
+            resolve()
         }
     })
 }
@@ -61,15 +61,15 @@ const generateIntegersPostData = {
     "jsonrpc": "2.0",
     "method": "generateIntegers",
     "params": {
-    "apiKey": "ccba1f8a-21ab-48c6-b62d-e8d34bb19c36",
-    "n": 5,
-    "min": 1,
-    "max": 100
+        "apiKey": "ccba1f8a-21ab-48c6-b62d-e8d34bb19c36",
+        "n": 5,
+        "min": 1,
+        "max": 100
     },
     "id": 1
 };
 
 
-randomOrgApiPromise(randomOrgRequestOptions, generateIntegersPostData);
+randomOrgApiPromise(randomOrgRequestOptions, generateIntegersPostData)
     .then(content => console.log(`CONTENT (Promise):\n${prettyPrintJson(JSON.parse(content))}`))
     .catch(error => console.log(`BUMMER: ${error}`));
