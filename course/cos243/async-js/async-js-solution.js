@@ -58,7 +58,7 @@ function randomOrgApiPromise(requestOptions, postData) {
             response.on('end', () => {
                 const content = chunks.join('');
                 resolve(content);
-                console.log(`CONTENT: \n${prettyPrintJson(JSON.parse(content))}`)
+                //console.log(`CONTENT: \n${prettyPrintJson(JSON.parse(content))}`)
             });
     
         });
