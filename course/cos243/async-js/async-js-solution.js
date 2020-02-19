@@ -44,7 +44,7 @@ function randomOrgApiPromise(requestOptions, postData) {
             reject(err)
         }
         else{
-            resolve()
+            resolve(content)
         }
     })
 }
