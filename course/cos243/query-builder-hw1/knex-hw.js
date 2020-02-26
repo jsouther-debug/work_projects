@@ -1,13 +1,3 @@
-const knex = require("knex")({
-    client: 'pg',
-    connection: {
-        host: 'faraday.cse.taylor.edu',
-        user: 'readonly',
-        password: 'nerds4christ',
-        database: 'dvdrental'
-    }
-});
-
 knex('category')
  .select('category_id', 'name')
  .then(result => console.log(result))
