@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <time.h>
 
 #include "lodepng.h"
 
+#define ONE_BILLION (double)1000000000.0
 #define BYTES_PER_PIXEL 4
 #define RED_OFFSET 0
 #define GREEN_OFFSET 1
@@ -67,6 +69,14 @@ init_image(image_t *image, int rows, int columns)
   image->rows = rows;
   image->columns = columns;
   image->pixels = (pixel_t *)malloc(image->columns * image->rows * BYTES_PER_PIXEL);
+}
+
+double
+now(void)
+{ //copy of time function
+  struct timespec current_time;
+  clock_gettime(CLOCK_REALTIME, &current_time);
+  return current_time.tv_sec + (current_time.tv_nsec / ONE_BILLION);
 }
 
 /* Free a previously initialized image.
@@ -257,6 +267,7 @@ main(int argc, char **argv)
   int num_t; //number of threads
   int trows; //total rows
   int rpt; //rows per thread
+  double stime, etime;
 
   int ch;
   while ((ch = getopt(argc, argv, "t:hi:k:o:")) != -1) {
@@ -308,7 +319,7 @@ main(int argc, char **argv)
 
   trows = (&input)->rows;
   rpt = trows/num_t;
-
+  stime = now();
   for (int i = 0;  i < num_t;  i++) {
     end_point+=rpt;
     if ((i+1)==num_t){
@@ -335,6 +346,8 @@ main(int argc, char **argv)
     manage_t = pthread_join(threads[i], NULL);
     check_thread_manage_t("join", manage_t);
   }
+  etime = now();
+  printf("    TOOK %5.3fs\n", etime - stime);
   encode_and_store(&output, output_file_name);
 
   free_image(&input);
